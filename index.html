@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <title>Petar_mc's HEX Generator</title>
+    
+    <meta name="theme-color" content="#9a14ff"/>
+    <meta property="og:title" content="HEX Generator">
+    <meta property="og:key" content="HEX Generator">
+    <meta property="og:description" content="Create HEX gradients easily.">
+
+
+  </head>
+
+  <body class="container" onload="addDefaultsFormats(); addDefaultsPresets(); loadCounter()">
+    <div id="hexColorTemplate" style="display:none;">
+      <div class="row">
+        <label for="color-$NUM">Hex Color #$NUM</label>
+        <input class="form-control col-md-1 hexColor" id="color-$NUM" style="border-radius: 10px;" value="$VAL"
+               data-jscolor="{preset:'small dark', position:'right'}" oninput="javascript: updateOutputText(event)"
+               onchange="javascript: updateOutputText(event); Cookies.set(`#${$NUM}`, document.getElementById('color-$NUM').value, { expires: 7, path: '' })"/>
+      </div>
+    </div>
+    
+    <div id="content">
+      <h1 id="title">HEX Generator</h1>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-2" style="padding-left: 0;">
+            <p style="text-align: center;font-weight: bold;font-size: 1px;margin-bottom: 0px;"></a><div style="display:inline-flex;">
+            </div>
+            <div id="hexColors" class="container-fluid">
+            </div>
+          </div>
+          <div class="col-md-10" style="padding-right: 0;">
+            <div class="container-fluid">
+              <div class="row">
+                <div id="output">
+                  <label id="graylabel2" class="gray" for="outputText" style="font-weight: bold;">Click below to copy the content with RGB!</label>
+                  <pre id="outputText" 
+                    onclick="copyTextToClipboard(this.textContent);"></pre>
+                  <span id="snackbar"><b>You copied the text</b></span>
+                </div>
+              </div>
+              <div class="row">
+                <div id="coloredNick"></div>
+              </div>
+              
+              <p id="error">This message contains more than 256 characters and might not fit in your chat box.</p>
+              <p id="warning-iridium">Iridium gradients only allow 2 hex colors (start and end). All hex between them will be ignored!</p>
+              <p id="warning-iridium-decoration">Iridium gradients don't allow decorations like bold, italic, strike or underline :(</p>
+              <div class="row">
+                <div class="col-md-3" style="padding-left: 0;">
+                  <label for="nickname">Message</label>
+                  <input class="form-control" id="nickname" type="text" maxlength="200" placeholder="Type your Text"
+                         value="petarmc1.github.io" oninput="javascript: updateOutputText(event);"
+                         onchange="javascript: updateOutputText(event)">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3" style="padding-left: 0;" id="minecraft">
+                  <label for="output-format">Output format</label>
+                  <select id="output-format"
+                          class="form-control"
+                          onmouseenter="showOutPutFormatTooltip();"
+                          onmouseout="hideOutPutFormatTooltip();"
+                          onload="addDefaultsFormats();" onchange="updateOutputText(event);">
+                  </select>
+                  <div id="output-format-tooltip" style="width: max-content; height: fit-content; position: absolute; display: none;z-index: 1" class="form-control">Loading..</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3" style="padding-left: 0;">
+                  <label for="color-preset">Presets colors</label>
+                  <select id="color-preset"
+                          class="form-control"
+                          onload="addDefaultsPresets();"
+                          onchange="preset(this.value); updateOutputText(event); ">
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <label for="numOfColors">Amount of colors</label>
+                <input class="form-control"
+                       style="width: 75px;"
+                       value="2" id="numOfColors" type="number" min="2" max="20"
+                       onchange="updateOutputText(event); toggleColors(this.value);"
+                       oninput="updateOutputText(event); toggleColors(this.value);"/>
+              </div>
+              <div class="row">
+                <div id="dbold">
+                  <input type="checkbox" id="bold" onclick="updateOutputText(event);"/>
+                  <label for="bold">Bold</label>
+                </div>
+                <div id="ditalics">
+                  <input type="checkbox" id="italics" onclick="updateOutputText(event);"/>
+                  <label for="italics">Italic</label>
+                </div>
+                <div id="dunderline">
+                  <input type="checkbox" id="underline" onclick="updateOutputText(event);"/>
+                  <label for="underline">Underline</label>
+                </div>
+                <div id="dstrike">
+                  <input type="checkbox" id="strike" onclick="updateOutputText(event);"/>
+                  <label for="strike">Strikethrough</label>
+                </div>
+                <div id="appearance">
+                  <input type="checkbox" id="darkmode" onclick="darkMode();"></input>
+                  <label for="darkmode" style="margin-bottom: 0px;margin-top: 0px;"> Dark Mode</label>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <footer>
+      <p text-align="left">If you want to suggest a color preset join my Discord server <a href="https://discord.gg/2Adsx4pMxU">here</a></p>
+      <p text-align="left">If there is a bug with the generator please crate an <a href="https://github.com/PetarMc1/petarmc.github.io/issues" target="_blank" >issue</a> </p>
+    </footer>
+  </body>
+  <script src="jscolor.js"></script>
+  <script src="script.js"></script>
+</html>
