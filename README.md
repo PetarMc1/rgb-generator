@@ -1,6 +1,6 @@
 # RGB Generator
 
-## Embedding theRGB Generator in your website
+## Embedding the RGB Generator in your website
 To add the RGB generator to your website, follow these steps:
 
 1. Copy the iframe code:
