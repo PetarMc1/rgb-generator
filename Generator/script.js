@@ -97,7 +97,6 @@ let double_emojis = []
 let emoji_array = []
 setTimeout(async ()=>{
   removeDuplicatedEmojis();
-  createTable(emoji_array);
 },1000);
 function removeDuplicatedEmojis() {;
   emoji_array = Array.from(new Set(emoji_array));
@@ -127,8 +126,6 @@ function darkMode() {
     document.getElementById('graylabel2').classList.replace("gray", "darkgray");
     document.getElementById('output-format-tooltip').classList.replace("gray", "darkgray");
     document.getElementById('error').classList.replace("errortext", "darkerrortext");
-    document.getElementById('warning-iridium').classList.replace("errortext", "darkerrortext");
-    document.getElementById('warning-iridium-decoration').classList.replace("errortext", "darkerrortext");
     document.getElementById('numOfColors').classList.add("darktextboxes");
     document.getElementById('output-format-tooltip').classList.add("darktextboxes");
     document.getElementById('output-format').classList.add("dark");
@@ -149,8 +146,6 @@ function darkMode() {
     document.getElementById('outputText').classList.replace("darkgray", "gray");
     document.getElementById('output-format-tooltip').classList.replace("darkgray", "gray");
     document.getElementById('error').classList.replace("darkerrortext", "errortext");
-    document.getElementById('warning-iridium').classList.replace("darkerrortext", "errortext");
-    document.getElementById('warning-iridium-decoration').classList.replace("darkerrortext", "errortext");
     document.getElementById('numOfColors').classList.remove("darktextboxes");
     document.getElementById('outputText').classList.remove("darktextboxes");
     document.getElementById('output-format-tooltip').classList.remove("darktextboxes");
@@ -409,9 +404,6 @@ function getColors() {
   });
   return colors;
 }
-function updateOutputTextFromPlugin(event) {
-  updateOutputText(event, true);
-}
 function updateOutputTextFromFont(event) {
   updateOutputText(event, false);
 }
@@ -473,21 +465,6 @@ function s(){
 function updateOutputText(event, setFormat) {
   let format;
   if(setFormat) {
-    let pluginData = pluginsList[document.getElementById('plugins-list').value];
-    if(!pluginData) {
-      console.log(`Plugins is not a format! Using default..`);
-      format = formats[document.getElementById('output-format').value] || formats["a0"];
-      document.getElementById("plugin-link-button").style.display = "none";
-    }else{
-      document.getElementById('output-format').value = pluginData.formatIdentifier;
-      format = formats[pluginData.formatIdentifier] || formats["a0"];
-      if(pluginData.link) {
-        document.getElementById("plugin-link-button").style.display = "initial";
-        document.getElementById("plugin-link-button").href = pluginData.link;
-      }else{
-        document.getElementById("plugin-link-button").style.display = "none";
-      }
-    }
   }else {
     format = formats[document.getElementById('output-format').value] || formats["a0"];
   }
@@ -591,7 +568,6 @@ function updateOutputText(event, setFormat) {
     }else{
       outputText.innerText = output;
     }
-    showIridiumWarning(format, colorsList);
     showError(format.maxLength != null && format.maxLength < output.length);
     displayColoredName(beforeFixedNewNick, charColors, format);
   }else if(mode == 2) {
@@ -720,7 +696,6 @@ function updateOutputText(event, setFormat) {
     }
     addDisplayColoredLore(finalBeforeReplacement, format);
     outputText.innerText = finalOutput.join("\r\n");
-    showIridiumWarning(format, colorsList);
   }else if(mode == 3) {
     let motdLines = motdInput.value.split("\n");
     if(motdInput.value.replace(/\n/g,"").trim().length == 0) motdLines = [`Type something!`,`Choose your MOTD!`];
@@ -845,7 +820,6 @@ function updateOutputText(event, setFormat) {
     }
     addDisplayColoredMOTD(finalBeforeReplacement, format);
     outputText.innerText = finalOutput.join("\r\n");
-    showIridiumWarning(format, colorsList);
   }
 }
 
@@ -932,13 +906,6 @@ function alertCopied() {
   copiedTimeout = setTimeout(()=>{ sb.className = sb.className.replace("show", ""); }, 3000);
 }
 toggleColors(2);
-updateOutputText(undefined);
 document.getElementById('darkmode').checked = true
 darkMode();
-toggleMode(null);
-addListeners();
-function addListeners() {
-  loreContainer.addEventListener('mousedown', startDrag);
-  window.addEventListener('mousemove', drag);
-  window.addEventListener('mouseup', stopDrag);
-}
+updateOutputText(event)

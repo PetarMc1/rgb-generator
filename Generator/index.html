@@ -5,7 +5,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-    <title>Petar_mc's HEX Generator</title>
+    <title>HEX Generator</title>
     
     <meta name="theme-color" content="#9a14ff"/>
     <meta property="og:title" content="HEX Generator">
@@ -15,7 +15,7 @@
 
   </head>
 
-  <body class="container" onload="addDefaultsFormats(); addDefaultsPresets(); loadCounter()">
+  <body class="container" onload="addDefaultsFormats(); addDefaultsPresets();">
     <div id="hexColorTemplate" style="display:none;">
       <div class="row">
         <label for="color-$NUM">Hex Color #$NUM</label>
@@ -50,8 +50,6 @@
               </div>
               
               <p id="error">This message contains more than 256 characters and might not fit in your chat box.</p>
-              <p id="warning-iridium">Iridium gradients only allow 2 hex colors (start and end). All hex between them will be ignored!</p>
-              <p id="warning-iridium-decoration">Iridium gradients don't allow decorations like bold, italic, strike or underline :(</p>
               <div class="row">
                 <div class="col-md-3" style="padding-left: 0;">
                   <label for="nickname">Message</label>
