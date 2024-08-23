@@ -5,7 +5,7 @@ To add the RGB generator to your website, follow these steps:
 
 1. Copy the iframe code:
 ```html
-<iframe src="https://petarmc1.github.io/rgb-generator" frameborder="0"></iframe>
+<iframe src="https://tools.petarmc.com/rgb-generator" frameborder="0"></iframe>
 ```
 2. Paste the code into your website
 
