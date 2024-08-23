@@ -1,13 +1,5 @@
 # RGB Generator
-
-## Embedding the RGB Generator in your website
-To add the RGB generator to your website, follow these steps:
-
-1. Copy the iframe code:
-```html
-<iframe src="https://tools.petarmc.com/rgb-generator" frameborder="0"></iframe>
-```
-2. Paste the code into your website
+Check out the [documentation](https://docs.petarmc.com/rgb-generator/about-the-project)
 
 ## Contributing
 Check [CONTRIBUTING.md](/CONTRIBUTING.md)
